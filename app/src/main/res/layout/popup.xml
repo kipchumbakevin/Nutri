@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/grocery"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/head"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="25sp"
+        android:text="Payment Form"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/firstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="10dp"
+        android:hint="first name"
+        android:inputType="textPersonName"/>
+
+    <EditText
+        android:id="@+id/lastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent"
+        android:layout_marginTop="5dp"
+        android:hint="last name"
+        android:inputType="textPersonName"/>
+
+    <EditText
+        android:id="@+id/otherName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="5dp"
+        android:hint="other name"
+        android:inputType="textPersonName"/>
+    <EditText
+        android:id="@+id/phoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent"
+        android:layout_marginTop="5dp"
+        android:hint="phone number"
+        android:inputType="phone" />
+
+
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="10dp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"/>
+
+    <TextView
+        android:id="@+id/amount"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/colorEdit"
+        android:layout_width="match_parent"
+        android:layout_marginStart="5dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:text="Ksh. " />
+
+
+    <Button
+        android:id="@+id/pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/button"
+        android:text="Submit"
+        android:textColor="@color/colorRed"
+        android:textSize="15sp"/>
+
+</LinearLayout>

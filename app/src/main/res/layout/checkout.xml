@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
+    <TextView
+        android:id="@+id/headCheckout"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="25sp"
+        android:text="Checkout Form"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/phoneNumberCheckout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="phone number"
+        android:textSize="20sp"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent"
+        android:layout_marginTop="30dp" />
+    <EditText
+        android:id="@+id/mpesa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColorHint="@color/colorAccent"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="20dp"
+        android:hint="mpesa code"
+        android:inputType=""/>
+
+
+    <Button
+        android:id="@+id/submitChecout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button"
+        android:text="Submit"
+        android:textColor="@color/colorRed"
+        android:textSize="15sp"/>
+</LinearLayout>
