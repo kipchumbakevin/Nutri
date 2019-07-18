@@ -162,6 +162,7 @@ public class ProductShopping extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String input=cartA.getText().toString();
+                cartA.setText("");
                 Intent i=new Intent(ProductShopping.this,ProductCart.class);
                 i.putExtra(MILK_QUANTITY,milkQuantity);
                 i.putExtra(SUKUMA_QUANTITY,sukumaQuantity);

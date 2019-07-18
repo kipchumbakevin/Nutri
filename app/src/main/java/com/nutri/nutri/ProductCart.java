@@ -26,6 +26,7 @@ import static com.nutri.nutri.R.color.colorRed;
 import static java.lang.Integer.valueOf;
 
 public class ProductCart extends AppCompatActivity {
+    private static final String CURRENT_POSITION = "com.nutri.nutri,first_Name";
     public static ArrayList<Product> mProductArrayList=new ArrayList<>();
     private Product[] productNames={};
     private String[] productAmounts={};
@@ -42,30 +43,30 @@ public class ProductCart extends AppCompatActivity {
         setContentView(R.layout.activity_product_cart);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        payment=findViewById(R.id.payment);
-        nameTotal=findViewById(R.id.totalName);
-        totalAmount=findViewById(R.id.total);
-        milk=findViewById(R.id.milkName);
-        quantity=findViewById(R.id.milkQuantity);
-        total=findViewById(R.id.milkTotal);
-        nameMilk=findViewById(R.id.nameMilk);
-        quantityMilk=findViewById(R.id.quantityMilk);
-        totalMilk=findViewById(R.id.totalMilk);
-        sukumaName=findViewById(R.id.sukumaName);
-        sukumaTotal=findViewById(R.id.sukumaTotal);
-        eggsName=findViewById(R.id.eggsName);
-        eggsQuantity=findViewById(R.id.eggsQuantity);
-        eggsTotal=findViewById(R.id.eggsTotal);
-        kukuName=findViewById(R.id.kukuName);
-        kukuQuantity=findViewById(R.id.kukuQuantity);
-        delete=findViewById(R.id.deleteItem);
-        kukuTotal=findViewById(R.id.kukuTotal);
-        noCart=findViewById(R.id.noCart);
-        maziwa=findViewById(R.id.checkBoxMilk);
-        mboga=findViewById(R.id.checkBoxSukuma);
-        mayai=findViewById(R.id.checkBoxEggs);
-        kukuK=findViewById(R.id.checkBoxChicken);
-        all=findViewById(R.id.checkBoxAll);
+        payment = findViewById(R.id.payment);
+        nameTotal = findViewById(R.id.totalName);
+        totalAmount = findViewById(R.id.total);
+        milk = findViewById(R.id.milkName);
+        quantity = findViewById(R.id.milkQuantity);
+        total = findViewById(R.id.milkTotal);
+        nameMilk = findViewById(R.id.nameMilk);
+        quantityMilk = findViewById(R.id.quantityMilk);
+        totalMilk = findViewById(R.id.totalMilk);
+        sukumaName = findViewById(R.id.sukumaName);
+        sukumaTotal = findViewById(R.id.sukumaTotal);
+        eggsName = findViewById(R.id.eggsName);
+        eggsQuantity  =findViewById(R.id.eggsQuantity);
+        eggsTotal = findViewById(R.id.eggsTotal);
+        kukuName = findViewById(R.id.kukuName);
+        kukuQuantity = findViewById(R.id.kukuQuantity);
+        delete = findViewById(R.id.deleteItem);
+        kukuTotal = findViewById(R.id.kukuTotal);
+        noCart = findViewById(R.id.noCart);
+        maziwa = findViewById(R.id.checkBoxMilk);
+        mboga = findViewById(R.id.checkBoxSukuma);
+        mayai =  findViewById(R.id.checkBoxEggs);
+        kukuK = findViewById(R.id.checkBoxChicken);
+        all = findViewById(R.id.checkBoxAll);
 
 
         getCartItems();
@@ -110,9 +111,6 @@ public class ProductCart extends AppCompatActivity {
                     quantity.setVisibility(View.INVISIBLE);
                     milk.setVisibility(View.INVISIBLE);
                     maziwa.setChecked(false);
-                    //return;
-
-                   // Toast.makeText(ProductCart.this,"Deleted",Toast.LENGTH_SHORT).show();
                 }
                  if (mayai.isChecked()){
                     totalMinus=kuku+sukuma+milkk-eggs;
@@ -125,7 +123,6 @@ public class ProductCart extends AppCompatActivity {
                     eggsQuantity.setVisibility(View.INVISIBLE);
                     eggsName.setVisibility(View.INVISIBLE);
                     mayai.setChecked(false);
-                    //return;
 
                 }
                  if (mboga.isChecked()){
@@ -153,8 +150,6 @@ public class ProductCart extends AppCompatActivity {
                     kukuName.setVisibility(View.INVISIBLE);
 
                 }
-
-                //Log.d("error", "onClick: imefika final total "+totaly);
 
             }
         });
@@ -201,57 +196,44 @@ public class ProductCart extends AppCompatActivity {
                 payUp.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (mEmail.getText().toString().isEmpty()){
-                            mEmail.setError("This is a required field");
-                        }if (phone.getText().toString().isEmpty()){
-                            phone.setError("This is a required field");
-                        }if (firstName.getText().toString().isEmpty()){
-                            firstName.setError("This is a required field");
-                        } if(lastName.getText().toString().isEmpty()){
-                            lastName.setError("This is a required field");
-                        }else{
-                            Toast.makeText(ProductCart.this,"Your payment will be processed shortly",Toast.LENGTH_SHORT).show();
-                            String num = phone.getText().toString();
-                            mEmail.getText().clear();
-                            phone.getText().clear();
-                            firstName.getText().clear();
-                            lastName.getText().clear();
-                            otherName.getText().clear();
-                            final AlertDialog.Builder mCheckout = new AlertDialog.Builder(ProductCart.this);
-                            View mCheck = getLayoutInflater().inflate(R.layout.checkout, null);
-                            final EditText mpesa=mCheck.findViewById(R.id.mpesa);
-                            final TextView headCheckout=mCheck.findViewById(R.id.headCheckout);
-                            final TextView phoneNumberCheckout=mCheck.findViewById(R.id.phoneNumberCheckout);
-                            phoneNumberCheckout.setText(num);
-                            final String checkP = "phone number";
-                            final Button checkout=mCheck.findViewById(R.id.submitChecout);
-                            checkout.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    if (mpesa.getText().toString().isEmpty()){
-                                        mpesa.setError("This is a required field");
-                                    }
-                                    else {
-                                        Toast.makeText(ProductCart.this, "Thank you for shopping with us.", Toast.LENGTH_SHORT).show();
-                                        mpesa.getText().clear();
-                                        phoneNumberCheckout.setText(checkP);
-                                    }
-                                }
-                            });
-                            mCheckout.setView(mCheck);
-                            AlertDialog dialogmm=mCheckout.create();
-                            dialogmm.show();
-                        }
+                       fillDialog();
+    }
 
-                    }
+
+
+    private void fillDialog(){
+        if (mEmail.getText().toString().isEmpty()){
+            mEmail.setError("This is a required field");
+        }
+        if (phone.getText().toString().isEmpty()){
+            phone.setError("This is a required field");
+        }if (firstName.getText().toString().isEmpty()){
+            firstName.setError("This is a required field");
+        }
+        if(lastName.getText().toString().isEmpty()){
+            lastName.setError("This is a required field");
+        }else{
+            String inputN = firstName.getText().toString();
+            String inputM = lastName.getText().toString();
+            Toast.makeText(ProductCart.this,"Thank you "+ inputN + " for shopping with us.",Toast.LENGTH_LONG).show();
+            String num = phone.getText().toString();
+            mEmail.getText().clear();
+            phone.getText().clear();
+            firstName.getText().clear();
+            lastName.getText().clear();
+            otherName.getText().clear();
+            finish();
+
+
+
+
+        }
+
+    }
                 });
                 mBuilder.setView(mView);
                 AlertDialog dialog= mBuilder.create();
-                if (dialog.isShowing()){
-                    dialog.dismiss();
-                }else {
-                    dialog.show();
-                }
+                dialog.show();
             }
         });
     }
@@ -321,9 +303,7 @@ public class ProductCart extends AppCompatActivity {
             else{
                 noCart.setVisibility(View.VISIBLE);
                 noCart.setText("NO ITEM WAS ADDED TO CART");
-                return;
             }
 
         }
-
 }
