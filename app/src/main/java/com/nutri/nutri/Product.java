@@ -1,13 +1,18 @@
 package com.nutri.nutri;
 
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
+
 /**
  * Created by KIPCHU on 02/07/2019.
  */
-
-public class Product {
+@Entity public class Product {
+@Id long id;
 
      String name;
      int image;
+
+
      public String getName(){
          return name;
      }
