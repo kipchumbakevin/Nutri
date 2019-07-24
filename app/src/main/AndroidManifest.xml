@@ -12,8 +12,7 @@
         <activity
             android:name=".ProductShopping"
             android:label="@string/app_name"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:supportsRtl="true" />
         <activity
             android:name=".ProductCart"
             android:label="@string/app_name"
@@ -23,12 +22,18 @@
             android:name=".NavigationActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".IntroActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Videos"></activity>
     </application>
 
 </manifest>

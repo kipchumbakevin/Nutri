@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductViewHolders>{
+    public static final String CURRENT_POSITION_VALUE = "com.nutri.nutri.current_value" ;
     private final Context mContext;
     private final LayoutInflater mLayoutInflater;
     private final ArrayList<Product> mProductArrayList;
@@ -53,8 +54,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public class ProductViewHolders extends RecyclerView.ViewHolder {
         private final ImageView productImage;
         private final TextView productName;
-        public int mCurrentPosition;
-
+        public  int mCurrentPosition;
 
 
         public ProductViewHolders(View itemView) {
@@ -66,8 +66,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 @Override
                 public void onClick(View view) {
                     Intent intent=new Intent(mContext, ProductShopping.class);
-                    mContext.startActivity(intent);
-                }
+                    intent.putExtra(CURRENT_POSITION_VALUE, mCurrentPosition);
+                    mContext.startActivity(intent);                }
             });
 
 
