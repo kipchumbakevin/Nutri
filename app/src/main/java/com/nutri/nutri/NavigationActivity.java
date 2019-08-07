@@ -93,7 +93,7 @@ public class NavigationActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.log_in) {
             return true;
         }
 
@@ -111,7 +111,9 @@ public class NavigationActivity extends AppCompatActivity
              startActivity(videos);
         } else if (id == R.id.nav_faq) {
 
-        } else if (id == R.id.nav_terms) {
+        } else if (id == R.id.nav_recipes){
+
+         } else if (id == R.id.nav_terms) {
 
         } else if (id == R.id.nav_share) {
 

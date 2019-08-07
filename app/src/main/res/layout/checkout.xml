@@ -5,8 +5,40 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:padding="5dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/cancel"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cancel" />
+
+        <TextView
+            android:id="@+id/numberPickerTitle"
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Number picker"/>
+
+    <ImageView
+        android:id="@+id/done"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_done" />
+    </LinearLayout>
 <NumberPicker
+    android:id="@+id/numberPicker"
+    android:layout_marginTop="20dp"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true">
 </NumberPicker>
 </RelativeLayout>

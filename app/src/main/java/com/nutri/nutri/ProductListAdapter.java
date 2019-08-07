@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,6 +55,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public class ProductViewHolders extends RecyclerView.ViewHolder {
         private final ImageView productImage;
         private final TextView productName;
+        Button addToCart;
         public  int mCurrentPosition;
 
 
@@ -61,13 +63,23 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             super(itemView);
             productName=(TextView) itemView.findViewById(R.id.product_name);
             productImage=(ImageView) itemView.findViewById(R.id.product_image);
+            addToCart = itemView.findViewById(R.id.goToCart);
+            addToCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(mContext, ProductShopping.class);
+                    intent.putExtra(CURRENT_POSITION_VALUE, mCurrentPosition);
+                    mContext.startActivity(intent);
+                }
+            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent=new Intent(mContext, ProductShopping.class);
                     intent.putExtra(CURRENT_POSITION_VALUE, mCurrentPosition);
-                    mContext.startActivity(intent);                }
+                    mContext.startActivity(intent);
+                }
             });
 
 

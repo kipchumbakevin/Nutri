@@ -16,13 +16,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.Map;
 
-public class ProductShopping extends AppCompatActivity {
+public class ProductShopping extends AppCompatActivity implements NumberPicker.OnValueChangeListener {
     private static final int REQUEST_CODE = 433;
     private static final int DEFAULT_POSITION = -2;
     public static final String MILK_QUANTITY = "com.nutri.nutri.milk_quantity";
@@ -32,7 +33,7 @@ public class ProductShopping extends AppCompatActivity {
     private int mPosition;
     ImageView productImage,viewCart;
     Button buyNow,description;
-    TextView productName;
+    TextView productName,amount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,23 +43,18 @@ public class ProductShopping extends AppCompatActivity {
         buyNow = findViewById(R.id.buy_now);
         description = findViewById(R.id.description);
         productName = findViewById(R.id.product_name);
+        amount = findViewById(R.id.amount);
         viewCart = findViewById(R.id.viewCart);
         viewCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ProductShopping.this,ProductCart.class);
-                startActivity(i);
+                getAmount();
             }
         });
         buyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(ProductShopping.this);
-                View mView = getLayoutInflater().inflate(R.layout.checkout,null);
-
-                mBuilder.setView(mView);
-                AlertDialog dialog = mBuilder.create();
-                dialog.show();
+                dialog();
             }
         });
 
@@ -70,6 +66,42 @@ public class ProductShopping extends AppCompatActivity {
         getIntentPosition();
         fillData();
     }
+
+    private void dialog() {
+        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(ProductShopping.this);
+        View mView = getLayoutInflater().inflate(R.layout.checkout,null);
+        NumberPicker np = mView.findViewById(R.id.numberPicker);
+        ImageView done = mView.findViewById(R.id.done);
+        ImageView cancel = mView.findViewById(R.id.cancel);
+        TextView title = mView.findViewById(R.id.numberPickerTitle);
+        np.setMaxValue(100);
+        np.setMinValue(0);
+        np.setWrapSelectorWheel(false);
+        np.setOnValueChangedListener(ProductShopping.this);
+        title.setText(productName.getText().toString());
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                int num = Integer.parseInt(amount.getText().toString());
+                if (num>0){
+                    amount.setVisibility(View.VISIBLE);
+                    Toast.makeText(ProductShopping.this, "Added to cart", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                amount.setText("");
+                dialog.dismiss();
+            }
+        });
+    }
+
     private void getIntentPosition(){
         mPosition = getIntent().getIntExtra(ProductListAdapter.CURRENT_POSITION_VALUE,DEFAULT_POSITION);
     }
@@ -104,5 +136,22 @@ public class ProductShopping extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+      amount.setText("" + newVal);
+    }
+    public void getAmount(){
+        Intent i = new Intent(ProductShopping.this,ProductCart.class);
+        int milkItems = Integer.parseInt(amount.getText().toString());
+        int sukumaItems = Integer.parseInt(amount.getText().toString());
+        int kukuItems = Integer.parseInt(amount.getText().toString());
+        int eggsItems = Integer.parseInt(amount.getText().toString());
+        i.putExtra(EGGS_QUANTITY,eggsItems);
+        i.putExtra(MILK_QUANTITY,milkItems);
+        i.putExtra(SUKUMA_QUANTITY,sukumaItems);
+        i.putExtra(KUKU_QUANTITY,kukuItems);
+        startActivity(i);
     }
 }

@@ -18,9 +18,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.SimpleTimeZone;
 
 import static com.nutri.nutri.R.color.colorRed;
 import static java.lang.Integer.valueOf;
@@ -73,95 +79,16 @@ public class ProductCart extends AppCompatActivity {
         all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (all.isChecked()){
-                    maziwa.setChecked(true);
-                    mboga.setChecked(true);
-                    mayai.setChecked(true);
-                    kukuK.setChecked(true);
-                }
-                else {
-                    maziwa.setChecked(false);
-                    mboga.setChecked(false);
-                    mayai.setChecked(false);
-                    kukuK.setChecked(false);
-                }
+                allChecked();
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                all.setVisibility(View.INVISIBLE);
-                String maz=Integer.toString(0);
-                 kuku = 600 * kukuItems;
-                 sukuma = sukumaItems;
-                 eggs = 10 * eggsItems;
-                 milkk = 60 * milkItems;
-                 totaly=kuku+sukuma+eggs+milkk;
-
-
-                if (maziwa.isChecked()){
-                    totalMinus=kuku+sukuma+eggs-milkk;
-                    milk.setText("");
-                    quantity.setText(maz);
-                    total.setText(maz);
-
-
-                    maziwa.setVisibility(View.INVISIBLE);
-                    total.setVisibility(View.INVISIBLE);
-                    quantity.setVisibility(View.INVISIBLE);
-                    milk.setVisibility(View.INVISIBLE);
-                    maziwa.setChecked(false);
-                }
-                 if (mayai.isChecked()){
-                    totalMinus=kuku+sukuma+milkk-eggs;
-                     eggsName.setText("");
-                     eggsQuantity.setText(maz);
-                     eggsTotal.setText(maz);
-
-                     mayai.setVisibility(View.INVISIBLE);
-                    eggsTotal.setVisibility(View.INVISIBLE);
-                    eggsQuantity.setVisibility(View.INVISIBLE);
-                    eggsName.setVisibility(View.INVISIBLE);
-                    mayai.setChecked(false);
-
-                }
-                 if (mboga.isChecked()){
-                    sukumaItems=0;
-                    sukumaName.setText("");
-                    sukumaTotal.setText(maz);
-                    totalMinus=+sukuma;
-                     totalAmount.setText(String.valueOf(totaly-totalMinus));
-
-                     mboga.setVisibility(View.INVISIBLE);
-                    sukumaTotal.setVisibility(View.INVISIBLE);
-                    sukumaName.setVisibility(View.INVISIBLE);
-                    mboga.setChecked(false);
-
-                }
-                 if (kukuK.isChecked()){
-                    kukuItems=0;
-                    kukuName.setText("");
-                    kukuQuantity.setText(maz);
-                    kukuTotal.setText(maz);
-                    totalAmount.setText("Ksh."+Integer.toString(totaly));
-                    kukuK.setVisibility(View.INVISIBLE);
-                    kukuTotal.setVisibility(View.INVISIBLE);
-                    kukuQuantity.setVisibility(View.INVISIBLE);
-                    kukuName.setVisibility(View.INVISIBLE);
-
-                }
-
-            }
-        });
-        milk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (milkItems>0||sukumaItems>0||eggsItems>0||kukuItems>0){
-                    all.setVisibility(View.VISIBLE);
-                    delete.setVisibility(View.VISIBLE);}
+                all.setVisibility(View.VISIBLE);
                 if (milkItems>0){
                     maziwa.setVisibility(View.VISIBLE);
-               }
+                }
                 if (sukumaItems>0){
                     mboga.setVisibility(View.VISIBLE);
                 }
@@ -171,6 +98,7 @@ public class ProductCart extends AppCompatActivity {
                 if (kukuItems>0){
                     kukuK.setVisibility(View.VISIBLE);
                 }
+                deleteItems();
             }
         });
         payment.setOnClickListener(new View.OnClickListener() {
@@ -192,6 +120,11 @@ public class ProductCart extends AppCompatActivity {
                 final Button payUp= mView.findViewById(R.id.pay);
                 final TextView pay= mView.findViewById(R.id.amount);
                 final TextView head= mView.findViewById(R.id.head);
+                final TextView showTime = mView.findViewById(R.id.showTime);
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat format = new SimpleDateFormat("hh.mm.ss++");
+                String time = format.format(calendar.getTime());
+                showTime.setText(time);
                 pay.setText(input);
                 payUp.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -223,12 +156,7 @@ public class ProductCart extends AppCompatActivity {
             lastName.getText().clear();
             otherName.getText().clear();
             finish();
-
-
-
-
         }
-
     }
                 });
                 mBuilder.setView(mView);
@@ -236,6 +164,84 @@ public class ProductCart extends AppCompatActivity {
                 dialog.show();
             }
         });
+    }
+
+    private void deleteItems() {
+        String maz=Integer.toString(0);
+        kuku = 600 * kukuItems;
+        sukuma = sukumaItems;
+        eggs = 10 * eggsItems;
+        milkk = 60 * milkItems;
+        totaly=kuku+sukuma+eggs+milkk;
+
+
+        if (maziwa.isChecked()){
+            totalMinus=kuku+sukuma+eggs-milkk;
+            milk.setText("");
+            quantity.setText(maz);
+            total.setText(maz);
+
+
+            maziwa.setVisibility(View.INVISIBLE);
+            total.setVisibility(View.INVISIBLE);
+            quantity.setVisibility(View.INVISIBLE);
+            milk.setVisibility(View.INVISIBLE);
+            maziwa.setChecked(false);
+        }
+        if (mayai.isChecked()){
+            totalMinus=kuku+sukuma+milkk-eggs;
+            eggsName.setText("");
+            eggsQuantity.setText(maz);
+            eggsTotal.setText(maz);
+
+            mayai.setVisibility(View.INVISIBLE);
+            eggsTotal.setVisibility(View.INVISIBLE);
+            eggsQuantity.setVisibility(View.INVISIBLE);
+            eggsName.setVisibility(View.INVISIBLE);
+            mayai.setChecked(false);
+
+        }
+        if (mboga.isChecked()){
+            sukumaItems=0;
+            sukumaName.setText("");
+            sukumaTotal.setText(maz);
+            totalMinus=+sukuma;
+            totalAmount.setText(String.valueOf(totaly-totalMinus));
+
+            mboga.setVisibility(View.INVISIBLE);
+            sukumaTotal.setVisibility(View.INVISIBLE);
+            sukumaName.setVisibility(View.INVISIBLE);
+            mboga.setChecked(false);
+
+        }
+        if (kukuK.isChecked()){
+            kukuItems=0;
+            kukuName.setText("");
+            kukuQuantity.setText(maz);
+            kukuTotal.setText(maz);
+            totalAmount.setText("Ksh."+Integer.toString(totaly));
+            kukuK.setVisibility(View.INVISIBLE);
+            kukuTotal.setVisibility(View.INVISIBLE);
+            kukuQuantity.setVisibility(View.INVISIBLE);
+            kukuName.setVisibility(View.INVISIBLE);
+            kukuK.setChecked(false);
+
+        }
+    }
+
+    private void allChecked() {
+        if (all.isChecked()){
+            maziwa.setChecked(true);
+            mboga.setChecked(true);
+            mayai.setChecked(true);
+            kukuK.setChecked(true);
+        }
+        else {
+            maziwa.setChecked(false);
+            mboga.setChecked(false);
+            mayai.setChecked(false);
+            kukuK.setChecked(false);
+        }
     }
 
     @Override
@@ -263,7 +269,7 @@ public class ProductCart extends AppCompatActivity {
                 quantity.setVisibility(View.VISIBLE);
                 quantity.setText(Integer.toString(milkItems) + " ltrs");
                 total.setVisibility(View.VISIBLE);
-                total.setText( Integer.toString(milkItems * 60));
+                total.setText("Ksh." + Integer.toString(milkItems * 60));
 
                 // Toast.makeText(ProductCart.this,"milk ("+milkItems+")",Toast.LENGTH_LONG).show();
             }
