@@ -45,6 +45,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         productViewHolders.mCurrentPosition=position;
 
 
+
     }
 
     @Override

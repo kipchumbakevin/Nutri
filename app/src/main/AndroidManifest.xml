@@ -12,7 +12,8 @@
         <activity
             android:name=".ProductShopping"
             android:label="@string/app_name"
-            android:supportsRtl="true" />
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ProductCart"
             android:label="@string/app_name"
@@ -33,7 +34,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Videos"></activity>
+        <activity android:name=".Videos"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".RecipesActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

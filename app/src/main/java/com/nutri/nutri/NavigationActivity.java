@@ -30,6 +30,7 @@ public class NavigationActivity extends AppCompatActivity
     ProductListAdapter mProductListAdapter;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +113,8 @@ public class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.nav_faq) {
 
         } else if (id == R.id.nav_recipes){
+             Intent recipes = new Intent(NavigationActivity.this,RecipesActivity.class);
+             startActivity(recipes);
 
          } else if (id == R.id.nav_terms) {
 

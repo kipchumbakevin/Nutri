@@ -2,5 +2,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:title="Login"
-        android:id="@+id/log_in"/>
+        android:id="@+id/log_in" />
 </menu>

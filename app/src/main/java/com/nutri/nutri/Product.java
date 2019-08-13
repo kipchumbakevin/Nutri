@@ -12,8 +12,7 @@ import io.objectbox.annotation.Id;
      String name;
      int image;
 
-
-     public String getName(){
+    public String getName(){
          return name;
      }
 

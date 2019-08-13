@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:1128072763854208147",
-      "lastPropertyId": "3:6523526450767021867",
+      "lastPropertyId": "4:6629288539499066377",
       "name": "Product",
       "properties": [
         {
@@ -32,7 +32,9 @@
   "modelVersionParserMinimum": 4,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    6629288539499066377
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

@@ -14,7 +14,6 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            app:titleTextColor="@color/colorWhite"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
@@ -23,5 +22,6 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_navigation" />
+
 
 </android.support.design.widget.CoordinatorLayout>

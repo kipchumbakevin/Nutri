@@ -13,14 +13,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ProductShopping extends AppCompatActivity implements NumberPicker.OnValueChangeListener {
@@ -32,8 +37,8 @@ public class ProductShopping extends AppCompatActivity implements NumberPicker.O
     public static final String KUKU_QUANTITY = "com.nutri.nutri.kuku_quantity";
     private int mPosition;
     ImageView productImage,viewCart;
-    Button buyNow,description;
-    TextView productName,amount;
+    Button buyNow,description,hideDescription;
+    TextView productName,amount,productDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +49,9 @@ public class ProductShopping extends AppCompatActivity implements NumberPicker.O
         description = findViewById(R.id.description);
         productName = findViewById(R.id.product_name);
         amount = findViewById(R.id.amount);
+        productDescription = findViewById(R.id.productDescription);
         viewCart = findViewById(R.id.viewCart);
+        hideDescription = findViewById(R.id.hideDescription);
         viewCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,17 +61,30 @@ public class ProductShopping extends AppCompatActivity implements NumberPicker.O
         buyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog();
+                //dialog();
+                popupDialog();
             }
         });
 
-
-
-                 //   milkQuantity=Integer.parseInt(input);
-                //Intent i=new Intent(ProductShopping.this,ProductCart.class);
-              //  i.putExtra(MILK_QUANTITY,milkQuantity);
+        description.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                description.setTextColor(getResources().getColor(R.color.colorGreen));
+                productDescription.setVisibility(View.VISIBLE);
+                hideDescription.setVisibility(View.VISIBLE);
+            }
+        });
+        hideDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                description.setTextColor(getResources().getColor(R.color.colorWhite));
+                productDescription.setVisibility(View.GONE);
+                hideDescription.setVisibility(View.GONE);
+            }
+        });
         getIntentPosition();
         fillData();
+        setTitle("Shopping");
     }
 
     private void dialog() {
@@ -98,6 +118,96 @@ public class ProductShopping extends AppCompatActivity implements NumberPicker.O
             public void onClick(View v) {
                 amount.setText("");
                 dialog.dismiss();
+            }
+        });
+    }
+    private void popupDialog(){
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(ProductShopping.this);
+        View mView = getLayoutInflater().inflate(R.layout.popupdisplay,null);
+        TextView dialogTitle = mView.findViewById(R.id.dialogTitle);
+        ImageView doneShopping = mView.findViewById(R.id.doneShopping);
+        ImageView cancelShopping = mView.findViewById(R.id.cancelShopping);
+        final Spinner spinner = mView.findViewById(R.id.spinner);
+        final RadioButton kienyeji = mView.findViewById(R.id.kienyeji);
+        final RadioButton broiler = mView.findViewById(R.id.broiler);
+        NumberPicker numberPicker = mView.findViewById(R.id.numberPicker);
+        numberPicker.setMaxValue(100);
+        numberPicker.setMinValue(0);
+        numberPicker.setWrapSelectorWheel(false);
+        numberPicker.setOnValueChangedListener(ProductShopping.this);
+        dialogTitle.setText(productName.getText().toString());
+        List<String> spinnerArray =  new ArrayList<String>();
+                spinnerArray.add("Full");
+                spinnerArray.add("Half");
+                spinnerArray.add("Quarter");
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                    this, android.R.layout.simple_spinner_item, spinnerArray);
+
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            spinner.setAdapter(adapter);
+
+        mBuilder.setView(mView);
+        final AlertDialog alertDialog = mBuilder.create();
+        alertDialog.show();
+        kienyeji.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (kienyeji.isChecked()){
+                    kienyeji.setChecked(false);
+                }if (broiler.isChecked()){
+                    broiler.setChecked(false);
+                    kienyeji.setChecked(true);
+                }else {
+                    kienyeji.setChecked(true);
+                }
+            }
+        });
+        broiler.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (broiler.isChecked()){
+                    broiler.setChecked(false);
+                }if (kienyeji.isChecked()){
+                    kienyeji.setChecked(false);
+                    broiler.setChecked(true);
+                }else{
+                    broiler.setChecked(true);
+                }
+            }
+        });
+
+        doneShopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (kienyeji.isChecked() || broiler.isChecked()) {
+                    String type = "";
+                    String quantity = spinner.getSelectedItem().toString();
+                    if (kienyeji.isChecked()) {
+                        type = kienyeji.getText().toString();
+                    }
+                    if (broiler.isChecked()) {
+                        type = broiler.getText().toString();
+                    }
+                    int amt = Integer.parseInt(amount.getText().toString());
+                    alertDialog.dismiss();
+                    if(Integer.parseInt(amount.getText().toString())>0) {
+                        Toast.makeText(ProductShopping.this, amt + " " + quantity + " piece(s) of " + type + " chicken added to cart", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(ProductShopping.this, "No item was added to cart",Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    kienyeji.setError("");
+                    broiler.setError("");
+                }
+            }
+        });
+
+        cancelShopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                amount.setText("");
             }
         });
     }
@@ -140,7 +250,12 @@ public class ProductShopping extends AppCompatActivity implements NumberPicker.O
 
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-      amount.setText("" + newVal);
+        if (newVal == 0){
+            amount.setText("");
+        }else {
+            amount.setText("" + newVal);
+        }
+
     }
     public void getAmount(){
         Intent i = new Intent(ProductShopping.this,ProductCart.class);

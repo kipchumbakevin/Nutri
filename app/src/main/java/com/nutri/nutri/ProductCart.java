@@ -120,11 +120,6 @@ public class ProductCart extends AppCompatActivity {
                 final Button payUp= mView.findViewById(R.id.pay);
                 final TextView pay= mView.findViewById(R.id.amount);
                 final TextView head= mView.findViewById(R.id.head);
-                final TextView showTime = mView.findViewById(R.id.showTime);
-                Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat format = new SimpleDateFormat("hh.mm.ss++");
-                String time = format.format(calendar.getTime());
-                showTime.setText(time);
                 pay.setText(input);
                 payUp.setOnClickListener(new View.OnClickListener() {
                     @Override
