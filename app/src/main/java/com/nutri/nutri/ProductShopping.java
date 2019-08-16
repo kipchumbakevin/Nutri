@@ -3,6 +3,7 @@ package com.nutri.nutri;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
@@ -22,6 +23,8 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -219,9 +222,11 @@ public class ProductShopping extends AppCompatActivity implements NumberPicker.O
         if (mPosition != DEFAULT_POSITION) {
             Product product = NavigationActivity.mProductArrayList.get(mPosition);
             productName.setText(product.getName());
-            // productPrice.setText(product.getPrice());
-            productImage.setImageResource(product.getImage());
-            // productDescription.setText(product.getDescription());
+           // productImage.setImageResource(product.getImage());
+            Glide.with(this)
+                    .load(Uri.parse(product.getImage()))
+                    .into(productImage);
+            productDescription.setText(product.getDescribe());
         }
     }
 

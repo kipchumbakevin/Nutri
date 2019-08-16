@@ -1,5 +1,6 @@
 package com.nutri.nutri;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,23 +19,34 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.nutri.nutri.ob_box.ObjectBox;
+
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.List;
+
+import io.objectbox.Box;
+import io.objectbox.query.Query;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static ArrayList<Product> mProductArrayList= new ArrayList<>();
     RecyclerView mRecyclerView;
-    private String[] productNames={"Milk", "Eggs","Chicken", "Fish","Sukumawiki","Tomatoes","Cabbage"};
-    private int[] productImages={R.drawable.milk, R.drawable.eggs,R.drawable.kuku, R.drawable.fish,R.drawable.kales,R.drawable.tomato, R.drawable.cabbage};
+    private Box<Product> mProductBox;
+   // private String[] productNames={"Milk", "Eggs","Chicken", "Fish","Sukumawiki","Tomatoes","Cabbage"};
+   // private int[] productImages={R.drawable.milk, R.drawable.eggs,R.drawable.kuku, R.drawable.fish,R.drawable.kales,R.drawable.tomato, R.drawable.cabbage};
     ProductListAdapter mProductListAdapter;
-
+    int position = 78;
+    private Query<Product> mProductQuery;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+        if (savedInstanceState!=null){
+            position = savedInstanceState.getInt("position");
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -51,22 +63,39 @@ public class NavigationActivity extends AppCompatActivity
         mProductListAdapter=new ProductListAdapter(NavigationActivity.this,mProductArrayList);
 
 
-        populateRecyclerView();
+       // populateRecyclerView();
         mRecyclerView.setAdapter(mProductListAdapter);
         mRecyclerView.setLayoutManager(new GridLayoutManager(NavigationActivity.this, 2));
+        initObjectBox();
+    }
+    private void initObjectBox() {
+        mProductBox = ObjectBox.get().boxFor(Product.class);
     }
 
-    private void populateRecyclerView() {
+    private void updateProducts(){
         mProductArrayList.clear();
-        int index;
-        for(index=0;index<productNames.length;index++) {
-            Product product = new Product();
-            product.setName(productNames[index]);
-            product.setImage(productImages[index]);
-            mProductArrayList.add(product);
-        }
+        mProductQuery = mProductBox.query().order(Product_.__ID_PROPERTY).build();
+        List<Product> products = mProductQuery.find();
+        mProductArrayList.addAll(products);
         mProductListAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateProducts();
+    }
+//    private void populateRecyclerView() {
+//        mProductArrayList.clear();
+//        int index;
+//        for(index=0;index<productNames.length;index++) {
+//            Product product = new Product();
+//            product.setName(productNames[index]);
+//            product.setImage(productImages[index]);
+//            mProductArrayList.add(product);
+//        }
+//        mProductListAdapter.notifyDataSetChanged();
+//    }
 
 
     @Override
@@ -95,6 +124,8 @@ public class NavigationActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.log_in) {
+            Intent intent = new Intent(NavigationActivity.this, AddProducts.class);
+            startActivity(intent);
             return true;
         }
 
@@ -133,5 +164,11 @@ public class NavigationActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("position",position);
     }
 }

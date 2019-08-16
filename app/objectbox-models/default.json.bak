@@ -19,10 +19,6 @@
         {
           "id": "3:6523526450767021867",
           "name": "image"
-        },
-        {
-          "id": "4:6629288539499066377",
-          "name": "productId"
         }
       ],
       "relations": []
@@ -36,7 +32,9 @@
   "modelVersionParserMinimum": 4,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    6629288539499066377
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

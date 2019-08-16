@@ -9,8 +9,24 @@ import io.objectbox.annotation.Id;
 @Entity public class Product {
 @Id long id;
 
-     String name;
-     int image;
+     String name,describe,imageUri;
+
+    public Product(String name, String describe, String imageUri) {
+        this.name = name;
+        this.describe = describe;
+        this.imageUri = imageUri;
+    }
+
+    public Product() {
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = describe;
+    }
 
     public String getName(){
          return name;
@@ -20,11 +36,11 @@ import io.objectbox.annotation.Id;
         this.name = name;
     }
 
-    public int getImage() {
-        return image;
+    public String getImage() {
+        return imageUri;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setImage(String image) {
+        this.imageUri = image;
     }
 }

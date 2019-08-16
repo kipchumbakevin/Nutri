@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:1128072763854208147",
-      "lastPropertyId": "4:6629288539499066377",
+      "lastPropertyId": "6:1873663702683910154",
       "name": "Product",
       "properties": [
         {
@@ -17,8 +17,12 @@
           "name": "name"
         },
         {
-          "id": "3:6523526450767021867",
-          "name": "image"
+          "id": "5:5948187785945035739",
+          "name": "describe"
+        },
+        {
+          "id": "6:1873663702683910154",
+          "name": "imageUri"
         }
       ],
       "relations": []
@@ -33,7 +37,8 @@
   "retiredEntityUids": [],
   "retiredIndexUids": [],
   "retiredPropertyUids": [
-    6629288539499066377
+    6629288539499066377,
+    6523526450767021867
   ],
   "retiredRelationUids": [],
   "version": 1

@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Users/KIPCHU/AppData/Local/JetBrains/Toolbox/apps/AndroidStudio/ch-0/183.5692245/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_arrow_drop_down_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Users/KIPCHU/AppData/Local/JetBrains/Toolbox/apps/AndroidStudio/ch-0/183.5692245/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_landscape_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,7 +33,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_arrow_drop_down" />
+                            <entry key="outputName" value="ic_landscape_black_24dp" />
                             <entry key="sourceFile" value="C:\Users\KIPCHU" />
                           </map>
                         </option>

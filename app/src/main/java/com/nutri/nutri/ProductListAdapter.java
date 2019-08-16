@@ -2,6 +2,7 @@ package com.nutri.nutri;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -41,7 +44,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public void onBindViewHolder(ProductViewHolders productViewHolders, int position) {
         Product product=mProductArrayList.get(position);
         productViewHolders.productName.setText(product.getName());
-        productViewHolders.productImage.setImageResource(product.getImage());
+        Glide.with(mContext)
+                .load(Uri.parse(product.getImage()))
+                .into(productViewHolders.productImage);
         productViewHolders.mCurrentPosition=position;
 
 

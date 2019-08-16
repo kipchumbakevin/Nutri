@@ -46,7 +46,7 @@
 
         android:layout_height="200dp"
 
-        android:src="@drawable/eggs"
+        android:src="@drawable/grocery"
 
         android:scaleType="center" />
             <ImageView
